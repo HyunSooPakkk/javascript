@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Screen 객체 복사본</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<style>
+		*{margin:0; padding:0;}
+		div{margin:0 auto; text-align:center; font-size:20px;}
+		#popup{width:400px; height:424px; background:url('images/pop1.jpg') no-repeat;
+			   background-size:400px; display: none;	
+			   position:fixed; left:500px; top:300px; border:1px solid black;}
+		#back{width:100%; height:1080px; background:rgba(0,0,0,0.8);
+			  position:fixed; left:0; top:0; filter:blur(10px);}	   
+	</style>
+	</head>
+	<body>
+		<h1>모달 팝업 띄우기</h1>
+		<button onclick="popupOpen()">팝업창 열기</button>
+		<div id="back"></div>
+		<div id="popup" onclick="popupClose()"></div>
+		<script>
+			var scx = (screen.width-400)/2;
+			var scy = (screen.hright-424)/2;
+			$("#popup").css("left",scx);
+			$("#popup").css("height",scy);
+			function popupOpen(){
+				$("#popup").css("display","block");
+				$("#back").css("display","block");
+				$("#popup").css("left",scx);
+				$("#popup").css("height",scy);
+			}
+			function popupClose(){
+				//alert("test");
+				$("#popup").css("display","none");
+				$("#back").css("display","none");
+			}
+			popupOpen();
+		</script>
+	</body>
+</html>

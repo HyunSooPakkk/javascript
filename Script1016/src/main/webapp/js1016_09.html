@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>함수</title>
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	</head>
+	<body>
+		<script>
+			//버튼 클릭 시 input1+input2 = #main 출력
+			//var input1, input2;
+			//function btn(){
+				//alert($("#input1").val());
+				//alert($("#input2").val());
+				//$(".main").text("main: "+(Number($("#input1").val())+Number($("#input2").val())));
+			//}
+			
+			//5를 입력하고 버튼 클릭 시 1,2,3,4,5 출력
+			//function btn(){
+				//var input1 = Number($("#input1").val());
+				//var txt="";
+				//5 -> 1 2 3 4 5 
+				//txt = "";
+				//for(var i=1;i<=input1;i++){
+					//txt = txt + i + "<br>";
+					//$(".main").text(txt); //글자로 인식해서 데이터를 삽입
+					//$(".main").html(txt); //태그로 인식해서 데이터를 삽입
+				//}
+			//}
+			
+			//5를 입력하고 버튼 클릭 시 구구단 5단 출력
+			//5 -> 5*1=5 5*2=10 5*3=15 ...
+			//function btn(){
+				//var input1 = Number($("#input1").val());
+				//var txt="";
+				//for(var i=input1;i<=input1;i++){
+					//for(var j=1;j<=9;j++){
+					//txt += i + "*" + j + "=" + (i*j) + "<br>";
+					//$(".main").text(txt); //글자로 인식해서 데이터를 삽입
+					//$(".main").html(txt); //태그로 인식해서 데이터를 삽입
+				//}
+			  //}//for
+			//}//function
+			
+			//input1,input2를 입력하고 버튼 클릭 시 구구단 해당 단 출력
+			//input1:"2" ,input2:"5" -> 2단에서 5단까지 ...
+			function btn(){
+				var input1 = Number($("#input1").val());
+				var input2 = Number($("#input2").val());
+				var txt="";
+				for(var i=input1;i<=input2;i++){
+					txt += i + "단<br>";
+					for(var j=1;j<=9;j++){
+					txt += i + "*" + j + "=" + (i*j) + "<br>";
+					//$(".main").text(txt); //글자로 인식해서 데이터를 삽입
+					$(".main").html(txt); //태그로 인식해서 데이터를 삽입
+				}
+			  }//for
+			}//function
+		</script>
+		<input type="text" name="input1" id="input1">단에서<br>
+		<input type="text" name="input2" id="input2">단까지<br>
+		<button onclick="btn()">버튼</button>
+		<div class="main"></div>
+	</body>
+</html>

@@ -2,66 +2,46 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>집밥을 특별하게, 쿡킷</title>
+		<title>주식시세 JSON</title>
 		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/style.css">
 		<link rel="stylesheet" type="text/css" href="css/notice.css">
-		<style>
-			img{width:50px;}
-		</style>
+		
 		<script>
 			$(function(){
-				var pageNo = $("#pageNo").val();
-				var s_url = "https://apis.data.go.kr/B551011/PhotoGalleryService1/galleryList1?serviceKey=vUNH6KvsEqMp8muJeHO79CUd6OPL69sOgnyqLyRytXAjfNZyxQBeELZfErW7ebQOo8XIFfTdqsi%2F8TozRxd%2Few%3D%3D&numOfRows="+pageNo+"&pageNo=1&MobileOS=ETC&MobileApp=AppTest&arrange=A&_type=xml";
-				$.ajax({
-						url: s_url, 		        //요청할 주소
+				var k_url = "https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo?serviceKey=vUNH6KvsEqMp8muJeHO79CUd6OPL69sOgnyqLyRytXAjfNZyxQBeELZfErW7ebQOo8XIFfTdqsi%2F8TozRxd%2Few%3D%3D&numOfRows=20&pageNo=2&resultType=json";
+					$.ajax({
+						url: k_url, 		        //요청할 주소
 						type:"get", 		 		//전송 방식 - get,post
 						data:"", 			 		//전달할 데이터
-						dataType:"xml", 	 		//요청한 데이터 타입 - xml,json,html,text
+						dataType:"json", 	 		//요청한 데이터 타입 - xml,json,html,text
 						success: function(data){	//성공 시
 							alert("데이터 성공");
-							console.log(data);
-							var sData = $(data).find("item");
-							console.log(sData.length);
-							var hData = "";
-							for(var i=0;i<sData.length;i++){
-								var galContentId = $(sData[i]).find("galContentId").text();
-								var galTitle = $(sData[i]).find("galTitle").text();
-								var galWebImageUrl = $(sData[i]).find("galWebImageUrl").text();
-								var galCreatedtime = $(sData[i]).find("galCreatedtime").text();
-								var galPhotographyLocation = $(sData[i]).find("galPhotographyLocation").text();
-							
-								console.log("1: "+galContentId);
-								console.log("2: "+galTitle);
-								console.log("3: "+galWebImageUrl);
-								console.log("4: "+galCreatedtime);
-								console.log("5: "+galPhotographyLocation);
-							
-								hData += "<tr>";
-								hData += "<td>"+galContentId+"</td>";
-								hData += "<td><a href='#'>"+galTitle+"</a></td>";
-								hData += "<td>"+galCreatedtime+"</td>";
-								hData += "<td>"+galPhotographyLocation+"</td>";
-								hData += "<td><img src='"+galWebImageUrl+"'</td>";
-								hData += "</tr>";
-							
+							console.log(data.response.body.items);
+							var kData = "";
+							var kItem = data.response.body.items.item;
+							;
+							for(var i=0;i<kItem.length;i++){
+							kData += "<tr>";
+							kData += "<td>"+kItem[i].isinCd+"</td>";
+							kData += "<td>"+kItem[i].itmsNm+"</td>";
+							kData += "<td>"+kItem[i].mkp+"</td>";
+							kData += "<td>"+kItem[i].hipr+"</td>";
+							kData += "<td>"+kItem[i].lopr+"</td>";
+							kData += "<td>"+kItem[i].trqu+"</td>";
+							kData += "<td>"+kItem[i].trPrc+"</td>";
+							kData += "</tr>";
 							}//for
-							
-							$("#cont").html(hData);
-							
-						},
+			
+				//tbody에 데이터 추가
+						$("#cont").html(kData);
+						},//success
 						error:function(){
 							alert("데이터 실패");
-						}
-						
+						}//error
 					});//ajax
-					
-			});//JQuery
+				});//JQuery	
 		</script>
-		<style>
-			#pageNo{width:120px; height:40px; margin-top:20px; float:right;}
-			
-		</style>
 	</head>
 	
 	<body>
@@ -118,44 +98,41 @@
 				</div>
 			</div>
 			
-			<div>
-				<select name="pageNo" id="pageNo">
-					<option value="10">10개씩</option>
-					<option value="20">20개씩</option>
-					<option value="30">30개씩</option>
-				</select>
-			</div>
 			<!--게시판 영역-->
 			<div class="ntc_cts">
 				<div class="tb_row">
 					<table>
 						<colgroup>
 							<col width="10%">
-							<col width="54%">
-							<col width="13%">
-							<col width="13%">
+							<col width="20%">
+							<col width="15%">
+							<col width="15%">
+							<col width="15%">
+							<col width="15%">
 							<col width="10%">
 						</colgroup>
 						<thead>
-							<tr>
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>조회수</th>
+						<tr>
+							<th>ISIN코드</th>
+							<th>종목명</th>
+							<th>시가</th>
+							<th>고가</th>
+							<th>저가</th>
+							<th>거래량</th>
+							<th>거래대금</th>
 						</tr>
 						</thead>
 						<tbody id="cont">
-							<tr>
-							<td>1</td>
-							<td><a href="#">CJ ONE 포인트, 기프트카드 사용 일시중단 안내</a></td>
-							<td>관리자</td>
-							<td>2022-11-21</td>
-							<td>100</td>
+						<tr>
+							<td>KR7000151001</td>
+							<td>두산</td>
+							<td>50300</td>
+							<td>50300</td>
+							<td>48900</td>
+							<td>39395</td>
+							<td>1938560200</td>
 						</tr>
 						</tbody>
-						
-						
 					</table>
 				</div>
 			</div>
